@@ -1,0 +1,55 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EmergencyPhysicians</title>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="/index.html">Home</a>
+        <a href="/regions.html">HospitalRegions</a>
+        <a href="/regions.html">EmergencyDepartments</a>
+        <a href="/regions.html">EmergencyPhysicians</a>
+        <a href="/regions.html">Patients</a>
+        <a href="/regions.html">EDVisits</a>
+      </nav>
+    </header>
+    <main>
+      <h2>Insert New Emergency Physician</h2>
+      <form action="/insertPhysician" method="post">
+        <label>
+          Name:
+          <input type="text" name="name" required /><br /> </label
+        ><br />
+        <label>
+          Credential:
+          <input
+            type="text"
+            name="credential"
+            required
+            placeholder="MD/DO"
+          /><br /> </label
+        ><br />
+        <input type="submit" value="Submit" />
+      </form>
+    </main>
+    <h2>Emergency Physician List</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Emergency Physician ID</th>
+          <th>Name</th>
+          <th>Credential</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Jane Doe</td>
+          <td>DO</td>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
