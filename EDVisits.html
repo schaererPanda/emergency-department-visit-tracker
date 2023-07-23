@@ -70,20 +70,61 @@
             <td><button>Edit</button></td>
             <td>1</td>
             <td>Emergency Department 1</td>
-            <td>John Smith</td>
+            <td>Juan Doe</td>
             <td>05-20-2023</td>
             <td>05:00 AM</td>
             <td>
               <form action="/visit-physicians" method="DELETE">
                 Dr. John Smith <button>X</button>
               </form>
+              <form action="/visit-physicians" method="POST">
+                <select name="ed_visit_physician_id">
+                  <option value="1">Dr. Katy Price</option>
+                  <option value="2">Dr. Mary Jones</option>
+                  <option value="2">Dr. Jason Brown</option>
+                </select>
+                <button>Add</button>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td><button>Edit</button></td>
+            <td>2</td>
+            <td>Emergency Department 2</td>
+            <td>Sarah Doe</td>
+            <td>05-20-2023</td>
+            <td>09:00 AM</td>
+            <td>
+              <form action="/visit-physicians" method="DELETE">
+                Dr. Mary Jones <button>X</button>
+              </form>
+              <form action="/visit-physicians" method="DELETE">
+                Dr. Jason Brown <button>X</button>
+              </form>
+              <form action="/visit-physicians" method="POST">
+                <select name="ed_visit_physician_id">
+                  <option value="1">Dr. Katy Price</option>
+                  <option value="2">Dr. John Smith</option>
+                </select>
+                <button>Add</button>
+              </form>
+            </td>
+          </tr>
+          <tr>
+            <td><button>Edit</button></td>
+            <td>1</td>
+            <td>Emergency Department 1</td>
+            <td>Mariah Doe</td>
+            <td>05-21-2023</td>
+            <td>08:00 AM</td>
+            <td>
               <form action="/visit-physicians" method="DELETE">
                 Dr. Katy Price <button>X</button>
               </form>
-
               <form action="/visit-physicians" method="POST">
                 <select name="ed_visit_physician_id">
-                  <option value="1">Dr. Mary Jones</option>
+                  <option value="1">Dr. John Smith</option>
+                  <option value="2">Dr. Mary Jones</option>
                   <option value="2">Dr. Jason Brown</option>
                 </select>
                 <button>Add</button>

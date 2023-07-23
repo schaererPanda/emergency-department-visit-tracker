@@ -1,5 +1,5 @@
 -- Patients
--- 1. Insert Statement
+-- 1. Insert Statement (@ character being used to denote the variables that will have data from the backend programming language)
 INSERT INTO Patients(name, age, race, sex, address, phone)
 VALUES (
     @name,
@@ -10,7 +10,7 @@ VALUES (
     @phone
   );
 
--- 2. Select Statement
+-- 2. Select Statement (Visible on browser as "____ List")
 SELECT *
 FROM Patients;
 
@@ -86,7 +86,7 @@ VALUES (
 SELECT *
 FROM EDVisitPhysicians;
 
--- 3. Delete Statement
+-- 3. Delete Statement (Remove physician from visit if needed, to be synced up with x buttons if needed)
 DELETE FROM EDVisitPhysicians
 WHERE ed_visit_id = @ed_visit_id
 AND   ed_visit_physician_id = @ed_visit_physician_id;
@@ -104,7 +104,7 @@ VALUES (
 SELECT *
 FROM Treatments;
 
--- 3. Update Statement
+-- 3. Update Statement (To be synced up with EDVisits edit button)
 UPDATE EDVisits
   SET
     emergency_department_id = @emergency_department_id,
