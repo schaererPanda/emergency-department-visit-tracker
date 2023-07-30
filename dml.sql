@@ -70,7 +70,16 @@ FROM EDVisits
   INNER JOIN EmergencyDepartments ON EDVisits.emergency_department_id = EmergencyDepartments.emergency_department_id
   LEFT JOIN EDVisitPhysicians ON EDVisitPhysicians.ed_visit_id = EDVisits.ed_visit_id
   INNER JOIN EmergencyPhysicians ON EmergencyPhysicians.emergency_physician_id = EDVisitPhysicians.emergency_physician_id
- 
+
+-- 3. Update Statement (To be synced up with EDVisits edit button)
+UPDATE EDVisits
+  SET
+    emergency_department_id = @emergency_department_id,
+    patient_id = @patient_id,
+    treatment_id = @treatment_id,
+    date_of_visit =  @date_of_visit,
+    admit_time = @admit_time;
+
 -- EDVisitPhysicians
 -- 1. Insert Statement
 INSERT INTO EDVisitPhysicians (
@@ -104,12 +113,5 @@ VALUES (
 SELECT *
 FROM Treatments;
 
--- 3. Update Statement (To be synced up with EDVisits edit button)
-UPDATE EDVisits
-  SET
-    emergency_department_id = @emergency_department_id,
-    patient_id = @patient_id,
-    treatment_id = @treatment_id,
-    date_of_visit =  @date_of_visit,
-    admit_time = @admit_time;
+
 

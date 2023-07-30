@@ -62,20 +62,22 @@
             <th>Patient</th>
             <th>Date</th>
             <th>Admit Time</th>
+            <th>Treatment</th>
             <th>Emergency Physicians</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td><button>Edit</button></td>
+            <td><a href="EditEDVisits.html?id=1">Edit</a></td>
             <td>1</td>
             <td>Emergency Department 1</td>
             <td>Juan Doe</td>
             <td>05-20-2023</td>
             <td>05:00 AM</td>
+            <td>Morphine</td>
             <td>
               <form action="/visit-physicians" method="DELETE">
-                Dr. John Smith <button>X</button>
+                Dr. John Smith <button>Remove</button>
               </form>
               <form action="/visit-physicians" method="POST">
                 <select name="ed_visit_physician_id">
@@ -88,18 +90,19 @@
             </td>
           </tr>
           <tr>
-            <td><button>Edit</button></td>
+            <td><a href="EditEDVisits.html?id=2">Edit</a></td>
             <td>2</td>
             <td>Emergency Department 2</td>
             <td>Sarah Doe</td>
             <td>05-20-2023</td>
             <td>09:00 AM</td>
+            <td>Tramadol</td>
             <td>
               <form action="/visit-physicians" method="DELETE">
-                Dr. Mary Jones <button>X</button>
+                Dr. Mary Jones <button>Remove</button>
               </form>
               <form action="/visit-physicians" method="DELETE">
-                Dr. Jason Brown <button>X</button>
+                Dr. Jason Brown <button>Remove</button>
               </form>
               <form action="/visit-physicians" method="POST">
                 <select name="ed_visit_physician_id">
@@ -111,15 +114,16 @@
             </td>
           </tr>
           <tr>
-            <td><button>Edit</button></td>
+            <td><a href="EditEDVisits.html?id=3">Edit</a></td>
             <td>3</td>
             <td>Emergency Department 1</td>
             <td>Mariah Doe</td>
             <td>05-21-2023</td>
             <td>08:00 AM</td>
+            <td>Amoxicillin</td>
             <td>
               <form action="/visit-physicians" method="DELETE">
-                Dr. Katy Price <button>X</button>
+                Dr. Katy Price <button>Remove</button>
               </form>
               <form action="/visit-physicians" method="POST">
                 <select name="ed_visit_physician_id">
