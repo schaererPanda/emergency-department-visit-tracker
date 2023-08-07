@@ -1,8 +1,10 @@
-USE --database--;
+DROP DATABASE IF EXISTS patient_physician_db;
+CREATE DATABASE patient_physician_db;
+USE patient_physician_db;
 
 -- Create Patients table
 
-CREATE OR REPLACE TABLE `Patients`(
+CREATE TABLE `Patients`(
   `patient_id` int(250) UNIQUE NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
   `age` int(11) NOT NULL,
@@ -15,7 +17,7 @@ CREATE OR REPLACE TABLE `Patients`(
 
 -- Create EmergencyPhysicians table
 
-CREATE OR REPLACE TABLE `EmergencyPhysicians` (
+CREATE TABLE `EmergencyPhysicians` (
   `emergency_physician_id` int(250) UNIQUE NOT NULL AUTO_INCREMENT,
   `name` varchar(250) NOT NULL,
   `credential` varchar(11) NOT NULL,
@@ -24,16 +26,16 @@ CREATE OR REPLACE TABLE `EmergencyPhysicians` (
 
 -- Create HospitalRegions table
 
-CREATE OR REPLACE TABLE `HospitalRegions`(
+CREATE  TABLE `HospitalRegions`(
   `hospital_region_id` int(250) UNIQUE NOT NULL AUTO_INCREMENT,
   `county_name` varchar(250) NOT NULL,
   `geographical_region_served` varchar(250) NOT NULL,
-  PRIMARY KEY (`hospital_region_id`)
+   PRIMARY KEY (`hospital_region_id`)
 );
 
 -- Create EmergencyDepartments table
 
-CREATE OR REPLACE TABLE `EmergencyDepartments` (
+CREATE  TABLE `EmergencyDepartments` (
   `emergency_department_id` int(250) UNIQUE NOT NULL AUTO_INCREMENT,
   `hospital_region_id` int(250) NOT NULL,
   `hospital_name` varchar(250) NOT NULL,
@@ -46,15 +48,15 @@ CREATE OR REPLACE TABLE `EmergencyDepartments` (
 
 -- Create Treatments table
 
-CREATE OR REPLACE TABLE `Treatments` (
+CREATE TABLE `Treatments` (
   `treatment_id` int(250) UNIQUE NOT NULL AUTO_INCREMENT,
   `treatment_name` varchar(255) NOT NULL,
-  PRIMARY KEY (`treatment_id`),
+  PRIMARY KEY (`treatment_id`)
 );
 
 -- Create EDVisits table
 
-CREATE OR REPLACE TABLE `EDVisits` (
+CREATE  TABLE `EDVisits` (
   `ed_visit_id` int(250) UNIQUE NOT NULL AUTO_INCREMENT,
   `emergency_department_id` int(250) NOT NULL,
   `patient_id` int(250) NOT NULL,
@@ -69,7 +71,7 @@ CREATE OR REPLACE TABLE `EDVisits` (
 
 -- Create EDVisitPhysicians table
 
-CREATE OR REPLACE TABLE `EDVisitPhysicians` (
+CREATE  TABLE `EDVisitPhysicians` (
   `ed_visit_physician_id` int(250) UNIQUE NOT NULL AUTO_INCREMENT,
   `ed_visit_id` int(250) NOT NULL,
   `emergency_physician_id` int(250) NOT NULL,
@@ -88,7 +90,7 @@ VALUES (1,'George Castanza', 32, 'Hispanic','Male','2225 NW Broadway, New York, 
 -- Sample data EmergencyPhysicians
 
 INSERT INTO `EmergencyPhysicians`
-VALUES (1,'Gregory House', 'DO'), (2, 'Dr Grey', 'DO'), (3,'Emmett Brown', 'Other');
+VALUES (1,'John Smith', 'DO'), (2, 'Katy Price', 'MD'), (3,'Mary Jones', 'DO'), (4,'Jason Brown', 'MD');
 
 -- Sample data HospitalRegions
 
@@ -100,17 +102,17 @@ VALUES (1,'Turner', 'NE'),  (2, 'Clark', 'NW'), (3,'Cook', 'MW');
 INSERT INTO `EmergencyDepartments` 
 VALUES (1, 1 ,'Princeton-Plainsboro','4421 State St, Princeton, New Jersey, 08542', '888-541-9104', 150), (2, 2 ,'Portland-Vancouver' ,'4001 State St, Portland, Oregon, 98771', '888-541-9104', 150), (3, 3 ,'Chicago-Metro','900 Prince Crossing Rd, Chicago, Illinois, 60185', '681-441-9205', 170);
 
+-- Sample data EDVisitPhysicians
+
+INSERT INTO `Treatments` 
+VALUES (1,'Placebo'),(2,'Morphine'),(3,'Oxycodone');
 -- Sample data EDVisits
 
 INSERT INTO `EDVisits` 
-VALUES (1,1,1, '2007-01-01', '12:30:30'),(2,2,2, '2008-02-01', '12:45:30'), (3,3,3, '2008-03-02', '12:50:30');
+VALUES (1,1,1,1, '2007-01-01', '12:30:30'),(2,2,2,2, '2008-02-01', '12:45:30'), (3,3,3,3, '2008-03-02', '12:50:30');
 
 -- Sample data EDVisitPhysicians
 
 INSERT INTO `EDVisitPhysicians` 
 VALUES (1,1,1),(2,1,2),(3,2,1);
 
--- Sample data EDVisitPhysicians
-
-INSERT INTO `Treatments` 
-VALUES (1,),(2,'Morphine'),(3,'Oxycodone');

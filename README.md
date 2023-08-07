@@ -1,3 +1,2 @@
-# physician-patient-ratio-app
+# CS340Project
 
-[Demo](https://schaererpanda.github.io/physician-patient-ratio-app/)

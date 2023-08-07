@@ -1,0 +1,23 @@
+{
+  "name": "cs340guide",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "db": "mysql -hcontainers-us-west-35.railway.app -uroot -p --port 7487 --protocol=TCP railway < ./database/DDL.sql"
+  },
+  "author": "Anthony Corton",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-handlebars": "^6.0.2",
+    "forever": "^4.0.3",
+    "mysql2": "^3.6.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  }
+}
