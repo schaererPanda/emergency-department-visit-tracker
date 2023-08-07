@@ -10,7 +10,7 @@ var pool = mysql.createPool({
   connectionLimit: 10,
   host: "containers-us-west-35.railway.app",
   user: "root",
-  password: process.env.MYSQL_PASSWORD,
+  password: process.env.MYSQLPASSWORD,
   database: "patient_physician_db",
   port: 7487,
 });
