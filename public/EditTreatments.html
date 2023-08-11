@@ -1,0 +1,128 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Treatments Form</title>
+
+    <script defer type="module">
+      import {
+        getVisits,
+        getTreatments,
+        getDepartments,
+        getPhysicians,
+        getRegions,
+        updateVisit,
+        updateEmergencyDepartment,
+        updateTreatments
+      } from "./js/api.js";
+
+      const visits = await getVisits();
+      const treatments = await getTreatments();
+      const departments = await getDepartments();
+      const physicians = await getPhysicians();
+      const regions = await getRegions();
+
+
+      const url = new URL(location.href);
+      const id = url.searchParams.get("id");
+
+      // Get the treatment with an id that matches the query string
+      const treatment = treatments.find((x) => x.treatment_id == id);
+
+      treatments.forEach((treatment) => {
+        document.querySelector(
+          `[name="treatment_id"]`
+        ).innerHTML += `
+          <option value="${treatment.treatment_id}">
+            ${treatment.treatment_name}
+          </option>
+        `;
+      });
+
+      // regions.forEach((region) => {
+      //   document.querySelector(`[name="hospital_region_id"]`).innerHTML += `
+      //     <option value="${region.hospital_region_id}">
+      //       ${region.county_name}
+      //     </option>
+      //   `;
+      // });
+
+    //   physicians.forEach((physician) => {
+    //     const isSelected = visit.physicians.find(
+    //       (x) => x.emergency_physician_id == physician.emergency_physician_id
+    //     );
+
+    //     document.querySelector(`[name="ed_visit_physician_ids"]`).innerHTML += `
+    //       <option
+    //         value="${physician.emergency_physician_id}"
+    //         ${isSelected ? "selected" : ""}
+    //       >
+    //         ${physician.name}
+    //       </option>
+    //     `;
+    //   });
+
+      // Populate the form with existing data
+      for (const key in treatment) {
+        const input = document.querySelector(
+          `#edit-treatment-form [name='${key}']`
+        );
+
+        if (input) {
+          input.value = treatment_name[key];
+        }
+      }
+
+      document
+        .querySelector("#edit-treatment-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const data = {
+            treatment_id: id,
+          };
+          document
+            .querySelectorAll(`#edit-treatment-form [name]`)
+            .forEach((input) => {
+              data[input.name] = input.value;
+            });
+
+        //   const physicianList = document.querySelector(
+        //     "[name='ed_visit_physician_ids']"
+        //   );
+        //   data.ed_visit_physician_ids = [...physicianList.selectedOptions].map(
+        //     (x) => x.value
+        //   );
+
+          await updateTreatments(data);
+        });
+    </script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="HospitalRegions.html">HospitalRegions</a>
+        <a href="EmergencyDepartments.html">EmergencyDepartments</a>
+        <a href="EmergencyPhysicians.html">EmergencyPhysicians</a>
+        <a href="Patients.html">Patients</a>
+        <a href="Treatments.html">Treatments</a>
+        <a href="EDVisits.html">EDVisits</a>
+      </nav>
+    </header>
+    <main>
+      <h2>Edit Treatments Form</h2>
+      <form id="edit-treatment-form" action="/treatments" method="put">
+
+          <select name="treatment_id">
+            <option value="null">No Treatment Rendered</option>
+            <option value="3">Amoxicillin</option> 
+          </select>
+        <br />
+        <br />
+
+        <input type="submit" value="Submit" />
+      </form>
+    </main>
+  </body>
+</html>

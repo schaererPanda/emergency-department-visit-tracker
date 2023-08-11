@@ -60,3 +60,61 @@ export async function updateVisit(data) {
 
   return true;
 }
+
+export async function updateEmergencyDepartment(data) {
+  const response = await fetch(`/api/departments/${data.emergency_department_id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    alert(message);
+    return;
+  }
+
+  const { message } = await response.json();
+  alert(message);
+
+  return true;
+}
+
+export async function updateTreatments(data) {
+  const response = await fetch(`/api/treatments/${data.treatment_id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    alert(message);
+    return;
+  }
+
+  const { message } = await response.json();
+  alert(message);
+
+  return true;
+}
+
+export async function updatePhysicians(data) {
+  const response = await fetch(`/api/physicians/${data.emergency_physician_id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    alert(message);
+    return;
+  }
+
+  const { message } = await response.json();
+  alert(message);
+
+  return true;
+}
+

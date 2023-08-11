@@ -1,0 +1,167 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit Emergency Departments Form</title>
+
+    <script defer type="module">
+      import {
+        getVisits,
+        getTreatments,
+        getDepartments,
+        getPhysicians,
+        getRegions,
+        updateVisit,
+        updateEmergencyDepartment
+      } from "./js/api.js";
+
+      const visits = await getVisits();
+      const treatments = await getTreatments();
+      const departments = await getDepartments();
+      const physicians = await getPhysicians();
+      const regions = await getRegions();
+
+
+      const url = new URL(location.href);
+      const id = url.searchParams.get("id");
+
+      // Get the visit with an id that matches the query string
+      const EDdepartment = departments.find((x) => x.emergency_department_id == id);
+
+      departments.forEach((department) => {
+        document.querySelector(
+          `[name="emergency_department_id"]`
+        ).innerHTML += `
+          <option value="${department.emergency_department_id}">
+            ${department.hospital_name}
+          </option>
+        `;
+      });
+
+      regions.forEach((region) => {
+        document.querySelector(`[name="hospital_region_id"]`).innerHTML += `
+          <option value="${region.hospital_region_id}">
+            ${region.county_name}
+          </option>
+        `;
+      });
+
+    //   physicians.forEach((physician) => {
+    //     const isSelected = visit.physicians.find(
+    //       (x) => x.emergency_physician_id == physician.emergency_physician_id
+    //     );
+
+    //     document.querySelector(`[name="ed_visit_physician_ids"]`).innerHTML += `
+    //       <option
+    //         value="${physician.emergency_physician_id}"
+    //         ${isSelected ? "selected" : ""}
+    //       >
+    //         ${physician.name}
+    //       </option>
+    //     `;
+    //   });
+
+      // Populate the form with existing data
+      for (const key in EDdepartment) {
+        const input = document.querySelector(
+          `#edit-department-form [name='${key}']`
+        );
+
+        if (input) {
+          input.value = EDdepartment[key];
+        }
+      }
+
+      document
+        .querySelector("#edit-department-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const data = {
+            ed_visit_id: id,
+          };
+          document
+            .querySelectorAll(`#edit-department-form [name]`)
+            .forEach((input) => {
+              data[input.name] = input.value;
+            });
+
+        //   const physicianList = document.querySelector(
+        //     "[name='ed_visit_physician_ids']"
+        //   );
+        //   data.ed_visit_physician_ids = [...physicianList.selectedOptions].map(
+        //     (x) => x.value
+        //   );
+
+          await updateEmergencyDepartment(data);
+        });
+    </script>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="HospitalRegions.html">HospitalRegions</a>
+        <a href="EmergencyDepartments.html">EmergencyDepartments</a>
+        <a href="EmergencyPhysicians.html">EmergencyPhysicians</a>
+        <a href="Patients.html">Patients</a>
+        <a href="Treatments.html">Treatments</a>
+        <a href="EDVisits.html">EDVisits</a>
+      </nav>
+    </header>
+    <main>
+      <h2>Edit Emergency Departments Form</h2>
+      <form id="edit-department-form" action="/departments" method="put">
+        <label>
+          Emergency Department:
+          <select name="emergency_department_id">
+            <!-- <option value="1">Department 1</option> -->
+          </select>
+        </label>
+        <br />
+        <br />
+        <!-- <label>
+          Hosptital Region ID:
+          <input type="text" name="hospital_region_id" />
+        </label> -->
+        <select name="hospital_region_id">
+          Hosptital Region ID:
+          <option value="unknown">Unknown</option>
+        </select>
+        <br />
+        <br />
+        <!-- <label>
+          Hosptial Name:
+          <input type="text" name="hospital_name" />
+        </label>
+        <br />
+        <br /> -->
+        <label>
+          Address:
+          <input type="text" name="address" />
+        </label>
+        <br />
+        <br />
+        <label>
+          Phone:
+          <input type="text" name="phone" />
+          </label>
+        <!-- <label>
+          Phone:
+          <select name="treatment_id">
+            <option value="null">No Treatment Rendered</option>
+            <option value="3">Amoxicillin</option> 
+          </select>
+        </label> -->
+        <br />
+        <br />
+
+        <!-- <select name="ed_visit_physician_ids" multiple>
+          <option value="1">Dr. Katy Price</option> 
+        </select> -->
+
+        <input type="submit" value="Submit" />
+      </form>
+    </main>
+  </body>
+</html>
