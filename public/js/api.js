@@ -42,6 +42,28 @@ export async function getPhysicians() {
   return await response.json();
 }
 
+export async function getPatients() {
+  const response = await fetch(`/api/patients`);
+  if (!response.ok) {
+    const { message } = await response.json();
+    alert(message);
+    return;
+  }
+
+  return await response.json();
+}
+
+export async function getRegions() {
+  const response = await fetch(`/api/patients`);
+  if (!response.ok) {
+    const { message } = await response.json();
+    alert(message);
+    return;
+  }
+
+  return await response.json();
+}
+
 export async function updateVisit(data) {
   const response = await fetch(`/api/visits/${data.ed_visit_id}`, {
     method: "PUT",

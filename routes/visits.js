@@ -76,4 +76,19 @@ router.put("/api/visits/:id", async (req, res) => {
   res.json({ message: "Visit updated successfully!" });
 });
 
+router.put("/api/insertVisit", async (req, res) => {
+  const { id } = req.params;
+
+  // const date = new Date(Date.parse(req.body.date_of_visit));
+
+  await db.pool.query(
+
+`INSERT INTO EDVisits 
+(ed_visit_id, emergency_department_id, patient_id, treatment_id, date_of_visit, admit_time) 
+VALUES (?, ?, ?, ?, ?, ? )`,
+[id, emergency_department_id, patient_id, treatment_id, date_of_visit, admit_time]
+  )
+});
+
+
 module.exports = router;

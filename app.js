@@ -17,6 +17,9 @@ const visitsRouter = require("./routes/visits");
 const treatmentsRouter = require("./routes/treatments");
 const departmentsRouter = require("./routes/departments");
 const physiciansRouter = require("./routes/physicians");
+const regionRouter = require("./routes/regions");
+const patientsRouter = require("./routes/physicians");
+
 
 // Database
 var db = require("./database/db-connector");
