@@ -3,6 +3,52 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EmergencyDepartments</title>
+    <script type="module">
+      import {
+        getHospitalRegions,
+        getEmergencyDepartments,
+        insertEmergencyDepartment,
+      } from "/js/api.js";
+
+      const regions = await getHospitalRegions();
+      regions.forEach((region) => {
+        document.querySelector(`[name="hospital_region_id"]`).innerHTML += `
+          <option value="${region.hospital_region_id}">
+            ${region.county_name} (${region.geographical_region_served})
+          </option>
+        `;
+      });
+
+      const emergencyDepartments = await getEmergencyDepartments();
+      emergencyDepartments.forEach((department) => {
+        document.querySelector("#department-table tbody").innerHTML += `
+          <tr>
+            <td>${department.emergency_department_id}</td>
+            <td>${department.hospital_region_id}</td>
+            <td>${department.hospital_name}</td>
+            <td>${department.address}</td>
+            <td>${department.phone}</td>
+            <td>${department.capacity}</td>
+          </tr>
+        `;
+      });
+
+      document
+        .querySelector("#insert-emergency-department-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const data = {};
+
+          // Get all the data from the form. Uses name attributes as property names.
+          document
+            .querySelectorAll(`#insert-emergency-department-form [name]`)
+            .forEach((input) => {
+              data[input.name] = input.value;
+            });
+          await insertEmergencyDepartment(data);
+        });
+    </script>
   </head>
   <body>
     <header>
@@ -18,19 +64,18 @@
     </header>
     <main>
       <h2>Insert New Emergency Department</h2>
-      <form action="/insertDepartment" method="post">
+      <form id="insert-emergency-department-form">
         <label>
-          Hospital Region ID:
-          <input
-            type="number"
-            name="hospital_region_id"
-            required
-          /><br /> </label
-        ><br />
+          Hospital Region:
+          <select name="hospital_region_id"></select>
+        </label>
+        <br />
+        <br />
         <label>
           Hospital Name:
-          <input type="text" name="hospital_name" required /><br /> </label
-        ><br />
+          <input type="text" name="hospital_name" required /> <br />
+        </label>
+        <br />
         <label>
           Address:
           <input type="text" name="address" required /><br /> </label
@@ -52,7 +97,7 @@
         <input type="submit" value="Submit" />
       </form>
       <h2>Emergency Department List</h2>
-      <table>
+      <table id="department-table">
         <thead>
           <tr>
             <th>Emergency Department ID</th>
@@ -64,54 +109,14 @@
           </tr>
         </thead>
         <tbody>
-          <tr>
+          <!-- <tr>
             <td>1</td>
             <td>1</td>
             <td>Hospital 1</td>
             <td>320 Fluffy Cat Drive</td>
             <td>123-456-7890</td>
             <td>150</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>1</td>
-            <td>Hospital 2</td>
-            <td>699 Other Road Drive</td>
-            <td>523-963-5275</td>
-            <td>200</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>2</td>
-            <td>Hospital 3</td>
-            <td>087 New Place Drive</td>
-            <td>124-325-4630</td>
-            <td>100</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>2</td>
-            <td>Hospital 4</td>
-            <td>14 Country Road St.</td>
-            <td>244-144-0928</td>
-            <td>150</td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>3</td>
-            <td>Hospital 5</td>
-            <td>1412 Other World St.</td>
-            <td>967-464-0338</td>
-            <td>150</td>
-          </tr>
-          <tr>
-            <td>6</td>
-            <td>3</td>
-            <td>Hospital 6</td>
-            <td>14 North Fork Rd</td>
-            <td>309-982-1111</td>
-            <td>100</td>
-          </tr>
+          </tr> -->
         </tbody>
       </table>
     </main>
