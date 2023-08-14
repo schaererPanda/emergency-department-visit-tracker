@@ -77,4 +77,41 @@ router.put("/api/visits/:id", async (req, res) => {
   res.json({ message: "Visit updated successfully!" });
 });
 
+router.post("/api/visits", async (req, res) => {
+  const emergency_department_id = req.body.emergency_department_id;
+  const patient_id = req.body.patient_id;
+  const admit_time = new Date(Date.parse(req.body.admit_time));
+  const formattedAdmitTime = `${admit_time.getFullYear()}-${
+    admit_time.getMonth() + 1
+  }-${admit_time.getDate()} ${admit_time.getHours()}:${admit_time.getMinutes()}:${admit_time.getSeconds()}`;
+
+  const treatment_id = req.body.treatment_id;
+  const ed_visit_physician_ids = req.body.ed_visit_physician_ids;
+
+  const [result] = await db.pool.query(
+    `
+      INSERT INTO EDVisits (
+        emergency_department_id,
+        patient_id,
+        admit_time,
+        treatment_id
+      )
+    VALUES (
+        ?, ?, ?, ?
+      );
+    `,
+    [emergency_department_id, patient_id, formattedAdmitTime, treatment_id]
+  );
+
+  for (const ed_visit_physician_id of req.body.ed_visit_physician_ids) {
+    await db.pool.query(
+      `
+      INSERT INTO EDVisitPhysicians(ed_visit_id, emergency_physician_id)
+      VALUES(?, ?)
+    `,
+      [result.insertId, ed_visit_physician_id]
+    );
+  }
+});
+
 module.exports = router;

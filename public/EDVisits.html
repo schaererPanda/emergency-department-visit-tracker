@@ -4,7 +4,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EDVisits</title>
     <script defer type="module">
-      import { getVisits, getTreatments, getDepartments } from "./js/api.js";
+      import {
+        getVisits,
+        getTreatments,
+        getDepartments,
+        getPhysicians,
+        insertVisit,
+      } from "./js/api.js";
 
       const departments = await getDepartments();
       departments.forEach((department) => {
@@ -25,6 +31,42 @@
           </option>
         `;
       });
+
+      const physicians = await getPhysicians();
+      physicians.forEach((physician) => {
+        document.querySelector(`[name="ed_visit_physician_ids"]`).innerHTML += `
+          <option
+            value="${physician.emergency_physician_id}"
+          >
+            ${physician.name}
+          </option>
+        `;
+      });
+
+      document
+        .querySelector("#insert-visit-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const data = {};
+
+          // Get all the data from the form. Uses name attributes as property names.
+          document
+            .querySelectorAll(`#insert-visit-form [name]`)
+            .forEach((input) => {
+              data[input.name] = input.value;
+            });
+
+          const physicianList = document.querySelector(
+            "[name='ed_visit_physician_ids']"
+          );
+          // Get an array of IDs from the physicians field.
+          data.ed_visit_physician_ids = [...physicianList.selectedOptions].map(
+            (x) => x.value
+          );
+
+          await insertVisit(data);
+        });
 
       const visits = await getVisits();
 
@@ -63,7 +105,7 @@
     </header>
     <main>
       <h2>Insert New EDVisit</h2>
-      <form action="/insertVisit" method="post">
+      <form id="insert-visit-form">
         <label>
           Emergency Department:
           <select name="emergency_department_id">
@@ -80,7 +122,7 @@
         <br />
         <label>
           Admit Time:
-          <input type="time" name="admit_time" required />
+          <input type="text" name="admit_time" required />
           <br />
         </label>
         <br />
@@ -89,6 +131,13 @@
           <select name="treatment_id">
             <option value="null">No Treatment Rendered</option>
             <!-- <option value="3">Amoxicillin</option> -->
+          </select>
+        </label>
+        <br />
+        <label>
+          Add/Remove Physicians
+          <select name="ed_visit_physician_ids" multiple>
+            <!-- <option value="1">Dr. Katy Price</option> -->
           </select>
         </label>
         <br />

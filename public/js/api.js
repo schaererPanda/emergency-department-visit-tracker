@@ -60,3 +60,22 @@ export async function updateVisit(data) {
 
   return true;
 }
+
+export async function insertVisit(data) {
+  const response = await fetch(`/api/visits`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    alert(message);
+    return;
+  }
+
+  const { message } = await response.json();
+  alert(message);
+
+  return true;
+}
