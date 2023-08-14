@@ -76,6 +76,7 @@
           const data = {
             ed_visit_id: id,
           };
+          // Get all the data from the form. Uses name attributes as property names.
           document
             .querySelectorAll(`#edit-visit-form [name]`)
             .forEach((input) => {
@@ -85,6 +86,7 @@
           const physicianList = document.querySelector(
             "[name='ed_visit_physician_ids']"
           );
+          // Get an array of IDs from the physicians field.
           data.ed_visit_physician_ids = [...physicianList.selectedOptions].map(
             (x) => x.value
           );
@@ -107,7 +109,7 @@
     </header>
     <main>
       <h2>Edit ED Visits Form</h2>
-      <form id="edit-visit-form" action="/visits" method="put">
+      <form id="edit-visit-form">
         <label>
           Emergency Department:
           <select name="emergency_department_id">
