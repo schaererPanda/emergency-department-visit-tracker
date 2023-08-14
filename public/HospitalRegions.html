@@ -3,6 +3,20 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HospitalRegions</title>
+    <script type="module">
+      import { getHospitalRegions } from "/js/api.js";
+      const hospitalRegions = await getHospitalRegions();
+
+      hospitalRegions.forEach((region) => {
+        document.querySelector("#regions-table tbody").innerHTML += `
+          <tr>
+            <td>${region.hospital_region_id}</td>
+            <td>${region.county_name}</td>
+            <td>${region.geographical_region_served}</td>
+          </tr>
+        `;
+      });
+    </script>
   </head>
   <body>
     <header>
@@ -31,7 +45,7 @@
       </form>
     </main>
     <h2>Hospital Regions List</h2>
-    <table>
+    <table id="regions-table">
       <thead>
         <tr>
           <th>Hospital Region ID</th>
@@ -40,36 +54,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <!-- <tr>
           <td>1</td>
           <td>Tiger County</td>
           <td>South East</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Hippo County</td>
-          <td>North West</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Penguin County</td>
-          <td>North East</td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Lion County</td>
-          <td>South West</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Dolphin County</td>
-          <td>North East</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Panda County</td>
-          <td>South East</td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
   </body>
