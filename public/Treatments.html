@@ -3,6 +3,47 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Treatments</title>
+
+    <script type="module">
+      import {
+        getTreatments,
+        insertTreatment,
+        deleteTreatment,
+      } from "/js/api.js";
+
+      const treatments = await getTreatments();
+      treatments.forEach((treatment) => {
+        const tr = document.createElement("tr");
+        tr.innerHTML += `
+          <td>${treatment.treatment_id}</td>
+          <td>${treatment.treatment_name}</td>
+          <td><button class="delete-button">Delete</button></td>
+        `;
+
+        const button = tr.querySelector(".delete-button");
+        button.addEventListener("click", async () => {
+          deleteTreatment(treatment);
+        });
+
+        document.querySelector("#treatments-table tbody").append(tr);
+      });
+
+      document
+        .querySelector("#insert-treatment-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const data = {};
+
+          // Get all the data from the form. Uses name attributes as property names.
+          document
+            .querySelectorAll(`#insert-treatment-form [name]`)
+            .forEach((input) => {
+              data[input.name] = input.value;
+            });
+          await insertTreatment(data);
+        });
+    </script>
   </head>
   <body>
     <header>
@@ -18,7 +59,7 @@
     </header>
     <main>
       <h2>Insert New Treatment</h2>
-      <form action="/submit_region" method="post">
+      <form id="insert-treatment-form">
         <label>
           Treatment Name:
           <input type="text" name="treatment_name" /><br /> </label
@@ -27,7 +68,7 @@
       </form>
     </main>
     <h2>Treatments List</h2>
-    <table>
+    <table id="treatments-table">
       <thead>
         <tr>
           <th>Treatment ID</th>
@@ -36,33 +77,13 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <!-- <tr>
           <td>1</td>
           <td>Morphine</td>
           <td>
-            <form action="/treatments/1" method="DELETE">
-              <button>Delete</button>
-            </form>
+            <button class="delete-button">Delete</button>
           </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Tramadol</td>
-          <td>
-            <form action="/treatments/2" method="DELETE">
-              <button>Delete</button>
-            </form>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Amoxicillin</td>
-          <td>
-            <form action="/treatments/3" method="DELETE">
-              <button>Delete</button>
-            </form>
-          </td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
   </body>

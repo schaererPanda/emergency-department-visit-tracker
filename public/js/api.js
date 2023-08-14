@@ -199,3 +199,39 @@ export async function insertPatient(data) {
 
   return true;
 }
+
+export async function insertTreatment(data) {
+  const response = await fetch(`/api/treatments`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    alert(message);
+    return;
+  }
+
+  const { message } = await response.json();
+  alert(message);
+
+  return true;
+}
+
+export async function deleteTreatment(data) {
+  const response = await fetch(`/api/treatments/${data.treatment_id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    alert(message);
+    return;
+  }
+
+  const { message } = await response.json();
+  alert(message);
+
+  return true;
+}
