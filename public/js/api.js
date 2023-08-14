@@ -90,3 +90,22 @@ export async function insertVisit(data) {
 
   return true;
 }
+
+export async function insertHospitalRegion(data) {
+  const response = await fetch(`/api/hospital-regions`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    alert(message);
+    return;
+  }
+
+  const { message } = await response.json();
+  alert(message);
+
+  return true;
+}

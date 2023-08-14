@@ -18,7 +18,7 @@ router.post("/api/hospital-regions", async (req, res) => {
   const geographicalRegionServed = req.body.geographical_region_served;
   await db.pool.query(
     `
-      INSERT INTO EDVisits (
+      INSERT INTO HospitalRegions (
         county_name,
         geographical_region_served
       )

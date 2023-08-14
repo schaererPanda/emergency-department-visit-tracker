@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>HospitalRegions</title>
     <script type="module">
-      import { getHospitalRegions } from "/js/api.js";
+      import { getHospitalRegions, insertHospitalRegion } from "/js/api.js";
       const hospitalRegions = await getHospitalRegions();
 
       hospitalRegions.forEach((region) => {
@@ -16,6 +16,22 @@
           </tr>
         `;
       });
+
+      document
+        .querySelector("#insert-hospital-region-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const data = {};
+
+          // Get all the data from the form. Uses name attributes as property names.
+          document
+            .querySelectorAll(`#insert-hospital-region-form [name]`)
+            .forEach((input) => {
+              data[input.name] = input.value;
+            });
+          await insertHospitalRegion(data);
+        });
     </script>
   </head>
   <body>
@@ -32,7 +48,7 @@
     </header>
     <main>
       <h2>Insert New Hospital Region</h2>
-      <form action="/submit_region" method="post">
+      <form id="insert-hospital-region-form">
         <label>
           County Name:
           <input type="text" name="county_name" /><br /> </label
