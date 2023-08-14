@@ -28,7 +28,7 @@ router.post("/api/emergency-departments", async (req, res) => {
         phone,
         capacity
       )
-    VALUES (
+      VALUES (
         ?, ?, ?, ?, ?
       );
     `,

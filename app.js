@@ -22,6 +22,7 @@ const treatmentsRouter = require("./routes/treatments");
 const departmentsRouter = require("./routes/departments");
 const physiciansRouter = require("./routes/physicians");
 const emergencyDepartmentsRouter = require("./routes/emergency-departments");
+const emergencyPhysiciansRouter = require("./routes/emergency-physicians");
 
 // Database
 var db = require("./database/db-connector");
@@ -97,6 +98,7 @@ app.use("/", treatmentsRouter);
 app.use("/", departmentsRouter);
 app.use("/", physiciansRouter);
 app.use("/", emergencyDepartmentsRouter);
+app.use("/", emergencyPhysiciansRouter);
 
 app.post("/add-emPhys-form", function (req, res) {
   // Capture the incoming data and parse it back to a JS object
