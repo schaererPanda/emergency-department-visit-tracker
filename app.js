@@ -16,6 +16,7 @@ const treatmentsRouter = require("./routes/treatments");
 const physiciansRouter = require("./routes/physicians");
 const emergencyDepartmentsRouter = require("./routes/emergency-departments");
 const emergencyPhysiciansRouter = require("./routes/emergency-physicians");
+const patientsRouter = require("./routes/patients");
 
 // Database
 require("./database/db-connector");
@@ -30,6 +31,7 @@ app.use("/", treatmentsRouter);
 app.use("/", physiciansRouter);
 app.use("/", emergencyDepartmentsRouter);
 app.use("/", emergencyPhysiciansRouter);
+app.use("/", patientsRouter);
 
 /*
     LISTENER
