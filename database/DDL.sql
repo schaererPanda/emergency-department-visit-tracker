@@ -61,8 +61,7 @@ CREATE  TABLE `EDVisits` (
   `emergency_department_id` int(250) NOT NULL,
   `patient_id` int(250) NOT NULL,
   `treatment_id` int(250),
-  `date_of_visit` date DEFAULT NULL,
-  `admit_time` time DEFAULT NULL,
+  `admit_time` datetime DEFAULT NULL,
   PRIMARY KEY (`ed_visit_id`),
   FOREIGN KEY (`emergency_department_id`) REFERENCES EmergencyDepartments(`emergency_department_id`),
   FOREIGN KEY (`patient_id`) REFERENCES Patients(`patient_id`),
@@ -126,12 +125,13 @@ VALUES (1,'Tramadol'),
 (5,'Epinephrine');
 -- Sample data EDVisits
 
-INSERT INTO `EDVisits` 
-VALUES (1,1,1,1, '2007-01-01', '12:30:30'),
-(2,2,2,2, '2008-02-01', '05:45:00'), 
-(3,3,3,3, '2008-03-02', '18:14:04'),
-(4,4,4,4, '2008-03-02', '22:00:55'),
-(5,5,5,5, '2008-03-02', '03:11:51');
+INSERT INTO `EDVisits`
+VALUES
+(1,1,1,1, '2007-01-01 12:30:30'),
+(2,2,2,2, '2008-02-01 05:45:00'), 
+(3,3,3,3, '2008-03-02 18:14:04'),
+(4,4,4,4, '2008-03-02 22:00:55'),
+(5,5,5,5, '2008-03-02 03:11:51');
 
 -- Sample data EDVisitPhysicians
 

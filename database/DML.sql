@@ -61,14 +61,12 @@ INSERT INTO EDVisits (
     emergency_department_id,
     patient_id,
     treatment_id,
-    date_of_visit,
     admit_time
   )
 VALUES (
     @emergency_department_id,
     @patient_id,
     @treatment_id,
-    @date_of_visit,
     @admit_time
   );
 
@@ -85,7 +83,6 @@ UPDATE EDVisits
     emergency_department_id = @emergency_department_id,
     patient_id = @patient_id,
     treatment_id = @treatment_id,
-    date_of_visit =  @date_of_visit,
     admit_time = @admit_time;
 
 -- EDVisitPhysicians

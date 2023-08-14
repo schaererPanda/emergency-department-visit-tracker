@@ -32,7 +32,10 @@ router.get("/api/visits", async (req, res) => {
 router.put("/api/visits/:id", async (req, res) => {
   const { id } = req.params;
 
-  const date = new Date(Date.parse(req.body.date_of_visit));
+  const admitTime = new Date(Date.parse(req.body.admit_time));
+  const formattedAdmitTime = `${admitTime.getFullYear()}-${
+    admitTime.getMonth() + 1
+  }-${admitTime.getDate()} ${admitTime.getHours()}:${admitTime.getMinutes()}:${admitTime.getSeconds()}`;
 
   await db.pool.query(
     `
@@ -41,7 +44,6 @@ router.put("/api/visits/:id", async (req, res) => {
       emergency_department_id = ?,
       patient_id = ?,
       treatment_id = ?,
-      date_of_visit = ?,
       admit_time = ?
     WHERE
       ed_visit_id = ?;
@@ -50,8 +52,7 @@ router.put("/api/visits/:id", async (req, res) => {
       req.body.emergency_department_id,
       req.body.patient_id,
       req.body.treatment_id,
-      `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`,
-      req.body.admit_time,
+      formattedAdmitTime,
       id,
     ]
   );
