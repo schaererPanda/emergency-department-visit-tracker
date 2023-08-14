@@ -21,7 +21,7 @@ export async function getTreatments() {
 }
 
 export async function getDepartments() {
-  const response = await fetch(`/api/departments`);
+  const response = await fetch(`/api/emergency-departments`);
   if (!response.ok) {
     const { message } = await response.json();
     alert(message);

@@ -13,7 +13,6 @@ const PORT = process.env.PORT || 9124; // Set a port number at the top so it's e
 const hopsitalRegionsRouter = require("./routes/hospital-regions");
 const visitsRouter = require("./routes/visits");
 const treatmentsRouter = require("./routes/treatments");
-const departmentsRouter = require("./routes/departments");
 const physiciansRouter = require("./routes/physicians");
 const emergencyDepartmentsRouter = require("./routes/emergency-departments");
 const emergencyPhysiciansRouter = require("./routes/emergency-physicians");
@@ -28,7 +27,6 @@ app.use(express.static(__dirname + "/public")); // this is needed to allow for t
 app.use("/", hopsitalRegionsRouter);
 app.use("/", visitsRouter);
 app.use("/", treatmentsRouter);
-app.use("/", departmentsRouter);
 app.use("/", physiciansRouter);
 app.use("/", emergencyDepartmentsRouter);
 app.use("/", emergencyPhysiciansRouter);
