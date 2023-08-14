@@ -48,8 +48,8 @@ FROM EmergencyDepartments;
 
 -- HospitalRegions
 -- 1. Insert Statement
-INSERT INTO HospitalRegions (county, geographical_region_served)
-VALUES (@county, @geographical_region_served);
+INSERT INTO HospitalRegions (county_name, geographical_region_served)
+VALUES (@county_name, @geographical_region_served);
 
 -- 2. Select Statement
 SELECT *
