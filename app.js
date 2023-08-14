@@ -16,6 +16,7 @@ var exphbs = require("express-handlebars"); // Import express-handlebars
 app.engine(".hbs", engine({ extname: ".hbs" })); // Create an instance of the handlebars engine to process templates
 app.set("view engine", ".hbs"); // Tell express to use the handlebars engine whenever it encounters a *.hbs file.
 
+const hopsitalRegionsRouter = require("./routes/hospital-regions");
 const visitsRouter = require("./routes/visits");
 const treatmentsRouter = require("./routes/treatments");
 const departmentsRouter = require("./routes/departments");
@@ -89,6 +90,7 @@ app.get("/", function (req, res) {
   });
 });
 
+app.use("/", hopsitalRegionsRouter);
 app.use("/", visitsRouter);
 app.use("/", treatmentsRouter);
 app.use("/", departmentsRouter);
