@@ -61,13 +61,15 @@ INSERT INTO EDVisits (
     emergency_department_id,
     patient_id,
     treatment_id,
-    admit_time
+    admit_time,
+    emergency_physician_id
   )
 VALUES (
     @emergency_department_id,
     @patient_id,
     @treatment_id,
-    @admit_time
+    @admit_time,
+    @emergency_physician_id
   );
 
 -- 2. Select Statement
