@@ -12,4 +12,24 @@ router.get("/api/hospital-regions", async (req, res) => {
 
   res.json(regions);
 });
+
+router.post("/api/hospital-regions", async (req, res) => {
+  const countyName = req.body.county_name;
+  const geographicalRegionServed = req.body.geographical_region_served;
+  await db.pool.query(
+    `
+      INSERT INTO EDVisits (
+        county_name,
+        geographical_region_served
+      )
+    VALUES (
+        ?, ?
+      );
+    `,
+    [countyName, geographicalRegionServed]
+  );
+
+  res.json({ message: "Region created successfully!" });
+});
+
 module.exports = router;
