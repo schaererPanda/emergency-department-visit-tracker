@@ -4,7 +4,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EDVisits</title>
     <script defer type="module">
-      import { getVisits } from "./js/api.js";
+      import { getVisits, getTreatments, getDepartments } from "./js/api.js";
+
+      const departments = await getDepartments();
+      departments.forEach((department) => {
+        document.querySelector(
+          `[name="emergency_department_id"]`
+        ).innerHTML += `
+          <option value="${department.emergency_department_id}">
+            ${department.hospital_name}
+          </option>
+        `;
+      });
+
+      const treatments = await getTreatments();
+      treatments.forEach((treatment) => {
+        document.querySelector(`[name="treatment_id"]`).innerHTML += `
+          <option value="${treatment.treatment_id}">
+            ${treatment.treatment_name}
+          </option>
+        `;
+      });
 
       const visits = await getVisits();
 
@@ -48,12 +68,7 @@
         <label>
           Emergency Department:
           <select name="emergency_department_id">
-            <option value="1">Emergency Department 1</option>
-            <option value="2">Emergency Department 2</option>
-            <option value="3">Emergency Department 3</option>
-            <option value="4">Emergency Department 4</option>
-            <option value="5">Emergency Department 5</option>
-            <option value="6">Emergency Department 6</option>
+            <!-- <option value="1">Emergency Department 1</option> -->
           </select>
           <br />
         </label>
@@ -74,6 +89,14 @@
           Admit Time:
           <input type="time" name="admit_time" required />
           <br />
+        </label>
+        <br />
+        <label>
+          Treatment:
+          <select name="treatment_id">
+            <option value="null">No Treatment Rendered</option>
+            <!-- <option value="3">Amoxicillin</option> -->
+          </select>
         </label>
         <br />
         <input type="submit" value="Submit" />
