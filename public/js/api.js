@@ -139,3 +139,33 @@ export async function insertEmergencyDepartment(data) {
 
   return true;
 }
+
+export async function getEmergencyPhysicians() {
+  const response = await fetch(`/api/emergency-physicians`);
+  if (!response.ok) {
+    const { message } = await response.json();
+    alert(message);
+    return;
+  }
+
+  return await response.json();
+}
+
+export async function insertEmergencyPhysician(data) {
+  const response = await fetch(`/api/emergency-physicians`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  });
+
+  if (!response.ok) {
+    const { message } = await response.json();
+    alert(message);
+    return;
+  }
+
+  const { message } = await response.json();
+  alert(message);
+
+  return true;
+}

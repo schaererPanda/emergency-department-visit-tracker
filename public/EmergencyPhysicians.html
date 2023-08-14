@@ -3,6 +3,39 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>EmergencyPhysicians</title>
+    <script type="module">
+      import {
+        insertEmergencyPhysician,
+        getEmergencyPhysicians,
+      } from "/js/api.js";
+      const physicians = await getEmergencyPhysicians();
+
+      physicians.forEach((physician) => {
+        document.querySelector("#physicians-table tbody").innerHTML += `
+          <tr>
+            <td>${physician.emergency_physician_id}</td>
+            <td>${physician.name}</td>
+            <td>${physician.credential}</td>
+          </tr>
+        `;
+      });
+
+      document
+        .querySelector("#insert-emergency-physician-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const data = {};
+
+          // Get all the data from the form. Uses name attributes as property names.
+          document
+            .querySelectorAll(`#insert-emergency-physician-form [name]`)
+            .forEach((input) => {
+              data[input.name] = input.value;
+            });
+          await insertEmergencyPhysician(data);
+        });
+    </script>
   </head>
   <body>
     <header>
@@ -18,32 +51,20 @@
     </header>
     <main>
       <h2>Insert New Emergency Physician</h2>
-      <form 
-      action="/add-emPhys-form" 
-      method="post"
-      id = add-EmPhys-form-ajax
-      >
-        <label>
-          ID:
-          <input 
-          id = "input-id"
-          type="text" 
-          name="id" 
-          required 
-          /><br /> </label>
+      <form id="insert-emergency-physician-form">
         <label>
           Name:
-          <input 
-          id = "input-name"
-          type="text" 
-          name="name" 
-          required 
+          <input
+            id="input-name"
+            type="text"
+            name="name"
+            required
           /><br /> </label
         ><br />
         <label>
           Credential:
           <input
-            id = "input-credential"
+            id="input-credential"
             type="text"
             name="credential"
             required
@@ -54,78 +75,20 @@
       </form>
     </main>
     <h2>Emergency Physician List</h2>
-    <table id = "EmPhys-table">
+    <table id="physicians-table">
       <thead>
         <tr>
           <th>Emergency Physician ID</th>
           <th>Name</th>
           <th>Credential</th>
-          <th></th>
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <!-- <tr>
           <td>1</td>
           <td>John Smith</td>
           <td>DO</td>
-          <td>
-            <form action="/delete-emPhys-ajax'/physicians/1" method="POST">
-              <button onclick="deleteEmPhys('id')">Delete</button>
-            </form>
-          </td>
-          <td>
-            <form action="/put-emPhys-ajax/physicians/1" method="PUT">
-              <button onclick="updateEmPhys('id')">Update</button>
-            </form>
-          </td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td>Katy Price</td>
-          <td>MD</td>
-          <td>
-            <form action="/delete-emPhys-ajax'/physicians/2" method="POST">
-              <button onclick="deleteEmPhys('id')">Delete</button>
-            </form>
-          </td>
-          <td>
-            <form action="/put-emPhys-ajax/physicians/2" method="PUT">
-              <button onclick="updateEmPhys('id')">Update</button>
-            </form>
-          </td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td>Mary Jones</td>
-          <td>DO</td>
-          <td>
-            <form action="/delete-emPhys-ajax'/physicians/3" method="POST">
-              <button onclick="deleteEmPhys('id')">Delete</button>
-            </form>
-          </td>
-          <td>
-            <form action="/put-emPhys-ajax/physicians/3" method="PUT">
-              <button onclick="updateEmPhys('id')">Update</button>
-            </form>
-          </td>
-            <br />
-          </td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td>Jason Brown</td>
-          <td>MD</td>
-          <td>
-            <form action="/delete-emPhys-ajax'/physicians/4" method="POST">
-              <button onclick="deleteEmPhys('id')">Delete</button>
-            </form>
-          </td>
-          <td>
-            <form action="/put-emPhys-ajax/physicians/4" method="PUT">
-              <button onclick="updateEmPhys('id')">Update</button>
-            </form>
-          </td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
   </body>
