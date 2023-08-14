@@ -112,6 +112,8 @@ router.post("/api/visits", async (req, res) => {
       [result.insertId, ed_visit_physician_id]
     );
   }
+
+  res.json({ message: "Visit created successfully!" });
 });
 
 module.exports = router;
