@@ -3,6 +3,40 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Patients</title>
+    <script type="module">
+      import { getPatients, insertPatient } from "/js/api.js";
+
+      const patients = await getPatients();
+      patients.forEach((patient) => {
+        document.querySelector("#patients-table tbody").innerHTML += `
+          <tr>
+            <td>${patient.patient_id}</td>
+            <td>${patient.name}</td>
+            <td>${patient.age}</td>
+            <td>${patient.race}</td>
+            <td>${patient.sex}</td>
+            <td>${patient.address}</td>
+            <td>${patient.phone}</td>
+          </tr>
+        `;
+      });
+
+      document
+        .querySelector("#insert-patient-form")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+
+          const data = {};
+
+          // Get all the data from the form. Uses name attributes as property names.
+          document
+            .querySelectorAll(`#insert-patient-form [name]`)
+            .forEach((input) => {
+              data[input.name] = input.value;
+            });
+          await insertPatient(data);
+        });
+    </script>
   </head>
   <body>
     <header>
@@ -18,7 +52,7 @@
     </header>
     <main>
       <h2>Insert New Patient</h2>
-      <form action="/insertPatient" method="post">
+      <form id="insert-patient-form">
         <label>
           Name:
           <input type="text" name="name" required /><br /> </label
@@ -53,7 +87,7 @@
       </form>
     </main>
     <h2>Patient List</h2>
-    <table>
+    <table id="patients-table">
       <thead>
         <tr>
           <th>Patient ID</th>
@@ -65,35 +99,7 @@
           <th>Phone</th>
         </tr>
       </thead>
-      <tbody>
-        <tr>
-          <td>1</td>
-          <td>Juan Doe</td>
-          <td>23</td>
-          <td>Hispanic</td>
-          <td>Male</td>
-          <td>444 Fluffy Dog Lane</td>
-          <td>111-765-3218</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Sarah Doe</td>
-          <td>43</td>
-          <td>Caucasian</td>
-          <td>Female</td>
-          <td>142 Last Moon Court</td>
-          <td>098-412-3333</td>
-        </tr>
-        <tr>
-          <td>1</td>
-          <td>Mariah Doe</td>
-          <td>70</td>
-          <td>Hispanic</td>
-          <td>Female</td>
-          <td>41 Moon Lane</td>
-          <td>142-444-9797</td>
-        </tr>
-      </tbody>
+      <tbody></tbody>
     </table>
   </body>
 </html>
